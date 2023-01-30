@@ -101,49 +101,61 @@ const MediaUrl = (url) => new Promise(async(resolve, reject)=>{
     }
 })
 
+    const UserUrl = (url) => new Promise(async(resolve, reject)=>{
+            const id = await GetMediaId(url);
+            console.log(id)
+            if(id === "ERROR"){
+                resolve("ERROR")
+            }else{
+            const response = await axios.get(`https://i.instagram.com/api/v1/media/${id}/info/`, {
+            headers: {
+                'cookie': _cookie,
+                'user-agent': _userAgent,
+                'x-ig-app-id': _xIgAppId
+            }
+        })
+        const Hasil = response.data.items[0]
+        let User = [];
+        const likes = Hasil.like_count
+        const commentCount = Hasil.comment_count
+        const user = Hasil.caption.user.username
+        const imageUrlr = Hasil.caption.user.profile_pic_url
+        const text = Hasil.caption.text
+            resolve({
+                likes: likes,
+                commentCount: commentCount,
+                text: text,
+                user: {
+                    username: user,
+                    imageUrlr: imageUrlr
+                }
+            })
 
-const GetInfoUser = (code_url) => new Promise(async(resolve, reject)=>{
-
-    const responseIwaIdUrl = await iwaIdUrl({
-
-        headers: {
-            'cookie': _cookie,
-            'user-agent': _userAgent,
-            'x-ig-app-id': _xIgAppId
-        },
-
-        base64images: false,                    // <!-- optional, but without it, you will be not able to store/show images
-        // file: "instagram-cache-byidurl.json",   // <!-- optional, instagram-cache.json is by default
-        pretty: true,                           // <!-- optional, prettyfy json true/false
-        time: 3600,                             // <!-- optional, reload contents after 3600 seconds by default
-
-        id: `${code_url}`                      // <!-- id is required
-
-    })
-    resolve(responseIwaIdUrl)
-    // console.log({ responseIwaIdUrl });
-    // res.json(responseIwaIdUrl)
-
-    // const responseIwaId = await Peking404({
-
-    //     headers: {
-    //         'cookie': _cookie,
-    //         'user-agent': _userAgent,
-    //         'x-ig-app-id': _xIgAppId
-    //     },
-
-    //     base64images: false,                    // <!-- optional, but without it, you will be not able to store/show images
-    //     file: "instagram-cache-byid.json",      // <!-- optional, instagram-cache.json is by default
-    //     pretty: true,                           // <!-- optional, prettyfy json true/false
-    //     time: 3600,                             // <!-- optional, reload contents after 3600 seconds by default
-
-    //     id: "2890411760684296309"               // <!-- id is required
-
-    // })
-    // res.json(responseIwaId)
-    // console.log({ responseIwaId });
-
+    }
+    
 })
+
+function GetInfoUser(code_url) {
+    return new Promise(async (resolve, reject) => {
+
+        const responseIwaIdUrl = await iwaIdUrl({
+            headers: {
+                'cookie': _cookie,
+                'user-agent': _userAgent,
+                'x-ig-app-id': _xIgAppId
+            },
+
+            base64images: false,
+
+            // file: "instagram-cache-byidurl.json",   // <!-- optional, instagram-cache.json is by default
+            pretty: true,
+            time: 3600,
+
+            id: `${code_url}` // <!-- id is required
+        });
+        resolve(responseIwaIdUrl);
+    });
+}
 
 const InstagramVideo = (url, res) => new Promise(async(resolve, reject)=>{
     const utup = url;
@@ -171,5 +183,6 @@ module.exports = {
     GetInfoUser,
     MediaUrl,
     GetMediaId,
-    InstagramVideo
+    InstagramVideo,
+    UserUrl
 }
