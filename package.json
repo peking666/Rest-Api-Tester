@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run start",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,7 +16,6 @@
     "instagram-api-scraper": "^1.0.0",
     "instagram-url-direct": "^1.0.13",
     "instagram-without-api-node": "^1.0.9",
-    "nodejs-file-downloader": "^4.10.6",
-    "nodemon": "^2.0.20"
+    "nodejs-file-downloader": "^4.10.6"
   }
 }
