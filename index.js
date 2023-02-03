@@ -7,6 +7,11 @@ const app = express()
 app.use(cors());
 const port = 3400
 
+app.get('/', (req, res) => {
+    res.send('oke');
+})
+
+
 app.get('/igdownload', (req, res) => {
     const url = req.query.url;
     console.log('Ini Urlnya bro', req.query.url)    
