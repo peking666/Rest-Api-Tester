@@ -1,4 +1,3 @@
-const { iwa, iwaId, iwaIdUrl, Peking404 } = require('instagram-without-api-node')
 const axios = require('axios');
 const imageToBase64 = require('image-to-base64');
 const Downloader = require('nodejs-file-downloader');
