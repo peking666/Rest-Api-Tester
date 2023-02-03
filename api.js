@@ -135,52 +135,9 @@ const MediaUrl = (url) => new Promise(async(resolve, reject)=>{
     
 })
 
-function GetInfoUser(code_url) {
-    return new Promise(async (resolve, reject) => {
 
-        const responseIwaIdUrl = await iwaIdUrl({
-            headers: {
-                'cookie': _cookie,
-                'user-agent': _userAgent,
-                'x-ig-app-id': _xIgAppId
-            },
-
-            base64images: false,
-
-            // file: "instagram-cache-byidurl.json",   // <!-- optional, instagram-cache.json is by default
-            pretty: true,
-            time: 3600,
-
-            id: `${code_url}` // <!-- id is required
-        });
-        resolve(responseIwaIdUrl);
-    });
-}
-
-const InstagramVideo = (url, res) => new Promise(async(resolve, reject)=>{
-    const utup = url;
-    console.log(utup)
-    const downloader = await new Downloader({
-        url: ""+utup,
-        directory: "./",
-        fileName: "somename.mp4", //Sub directories will also be automatically created if they do not exist.
-        onProgress: function (percentage, chunk, remainingSize) {
-          //Gets called with each chunk.
-          console.log("% ", percentage);
-        },
-      });
-    
-      try {
-        await downloader.download(url);
-        res.send("sukes")
-      } catch (error) {
-        console.log(error);
-      }
-
-})
 
 module.exports = {
-    GetInfoUser,
     MediaUrl,
     GetMediaId,
     InstagramVideo,
