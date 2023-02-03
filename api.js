@@ -139,6 +139,5 @@ const MediaUrl = (url) => new Promise(async(resolve, reject)=>{
 module.exports = {
     MediaUrl,
     GetMediaId,
-    InstagramVideo,
     UserUrl
 }
